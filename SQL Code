@@ -1,0 +1,189 @@
+Here is the SQL code I wrote querying the Northwind Database
+
+Q.1: The business wants to know how many shippers there are in the database
+SELECT *
+	FROM Shippers;
+
+Q.2: The business would like to know the CategoryName and Description from the Categories table
+SELECT 
+	CategoryName,
+	Description
+	FROM Categories;
+
+
+Q.3: The business wants to know the Last Name, FirstName and Hiredate of all employees who are Sales Representative. 
+SELECT LastName, FirstName, HireDate
+FROM Employees
+	where Title = 'Sales Representative';
+
+
+Q.4:  The business wants to know the Last Name, FirstName and Hiredate of all employees who are Sales Representative and based in the USA. 
+SELECT LastName, FirstName, HireDate
+FROM Employees
+	where Title = 'Sales Representative'
+		AND Country = 'USA';
+
+Q.5: The business wants to know all the orders placed by a customer called ISLAND TRADING
+SELECT * 
+FROM Customers;
+-- I used customers table to obtain the customer ID for Island Training. ISLAT
+
+SELECT
+	OrderID, OrderDate
+FROM Orders
+WHERE CustomerID = 'ISLAT';
+
+
+
+Q.6: The business wants to know all the suppliers’ details who are not Salesrepresentative
+SELECT 
+	CompanyName,
+	ContactName,
+	ContactTitle
+FROM Suppliers
+	WHERE ContactTitle != 'SalesRepresentative';
+
+Q.7: The business wants to know the ProductID and ProductName for all the products with the word ‘queso’.
+SELECT 
+	ProductID,
+	ProductName
+	
+	FROM Products
+	WHERE ProductName  LIKE '%queso%';
+
+Q.8: The business wants to know the OrderID, CustomerID and ShipCountry for all the orders that are shipped from Germany or Brazil.
+
+SELECT 
+	OrderID,
+	CustomerID,
+	ShipCountry
+	
+	FROM Orders
+	WHERE ShipCountry IN ('Germany’, 'Brazil');
+
+Q.9: The business wants to know all the orders that are shipped to Latin America (i.e.: Brazil,Mexico,Argentina,Venezuela)
+
+SELECT 
+	OrderID,
+	CustomerID,
+	ShipCountry
+	FROM Orders
+
+WHERE ShipCountry IN ('Brazil' , 'Mexico', 'Argentina' , 'Venezuela')
+
+Q.10: Select all the employees firstname, lastname, title and birthdate with the youngest person at the top
+SELECT 
+	FirstName,
+	LastName,
+	Title,
+	BirthDate
+	FROM Employees
+
+ORDER BY BirthDate Desc;
+
+Q.11: Please generate the full name of each employee.
+SELECT
+	Full_Name = FirstName + ' ' + LastName
+	FROM Employees;
+
+Q.12:The business wants to know the OrderID, ProductID, UnitPrice,Quantity and Total Price of the top 20 products.
+SELECT	Top 20
+		OrderID,
+		ProductID,
+		UnitPrice,
+		Quantity,
+		Total_Price = UnitPrice * Quantity
+
+FROM [Order Details]
+ORDER BY
+	Total_Price DESC;
+
+Q.13: Please generate the total no of customers
+SELECT	
+	Total_Customers = COUNT(*)
+
+FROM Customers;
+
+Q.14: The business wants to know when the first order was placed
+SELECT	
+	First_Order = MIN(OrderDate)
+FROM Orders;
+
+Q.15:The business wants to know all the countries they have customers
+SELECT	DISTINCT
+	Country
+
+FROM Customers;
+
+Q.16: The business wants to know the titles of all the customers
+SELECT	
+	ContactTitle,
+	Total_ContactTitle = COUNT(*)
+
+FROM Customers
+GROUP BY ContactTitle
+ORDER BY COUNT(*) DESC;
+
+Q.17: The business wants to know the list of products and their suppliers
+SELECT	
+	ProductID,
+	ProductName,
+	Supplier_Name = CompanyName
+
+FROM Products P
+JOIN Suppliers S
+ON P.SupplierID=S.SupplierID;
+
+Q.18: The business wants a list of total products in each category
+SELECT	
+	CategoryName,
+	Total_Product = COUNT(*)
+
+FROM Products P
+JOIN Categories C
+ON P.CategoryID  = C.CategoryID
+
+GROUP BY CategoryName
+ORDER BY COUNT(*) desc;
+
+
+Q.19: The business wants to know the total no of customers in each country
+SELECT	
+	Country,
+	City,
+	Total_Customers = COUNT(*)
+
+FROM Customers
+
+GROUP BY Country,
+		 City
+ORDER BY COUNT(*) desc;
+
+Q.20: Please give me a list of all the products that needs re ordering
+SELECT 
+	ProductID,
+	ProductName,
+	UnitsInStock,
+	ReorderLevel
+
+FROM Products
+WHERE UnitsInStock <= ReorderLevel
+ORDER BY ProductID;
+
+Q.21: The business wants a list of customers by region
+SELECT 
+	CustomerID,
+	CompanyName,
+	Region
+
+FROM Customers
+ORDER BY 
+CASE When Region is NULL Then 1
+	Else 0
+End,
+	Region,
+	CustomerID;
+
+In summary I had to use a wide range of SQL queries to answer those business questions, from simple SELECT statements to more complex queries involving  In, Join, Like, Null, , Where, joins,  Min, case, and aggregations elements.
+
+
