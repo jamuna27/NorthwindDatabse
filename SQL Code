@@ -1,4 +1,4 @@
-Here is the SQL code I wrote querying the Northwind Database
+Here are the SQL codes I wrote querying the Northwind Database. The answers to the queries are attached HERE.
 
 Q.1: The business wants to know how many shippers there are in the database
 SELECT *
